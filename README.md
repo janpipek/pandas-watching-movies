@@ -18,7 +18,8 @@ pip install -r requirements.txt
 
 ### Documentation
 
-TODO
+- <https://pandas.pydata.org/docs/index.html>: Official pandas documentation
+
 ### Other learning materials by us (at least partly)
 
 - <https://github.com/coobas/pycon-cz-2019-workshop>: A workshop at PyCon CZ 2019
