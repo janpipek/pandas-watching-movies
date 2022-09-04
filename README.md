@@ -1,6 +1,8 @@
 # pandas-watching-movies
 
-## Installation
+This is a repository for the Pandas Watching movies at [PyCon SK 2022](https://2022.pycon.sk).
+
+## Local installation
 
 1) Create a virtual environment
 
