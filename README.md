@@ -14,6 +14,10 @@ If you do not know how to do it, visit ...
 pip install -r requirements.txt
 ```
 
+## Source of data
+
+- IMDB data: Information courtesy of IMDb (https://www.imdb.com). Used with permission.
+
 ## Links
 
 ### Documentation
