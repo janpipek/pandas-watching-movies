@@ -1,9 +1,9 @@
 import inspect
 
 
-def show_solution(excercise_name: str) -> None:
+def show_solution(exercise_name: str) -> None:
     try:
-        func = globals()[f"solution_{excercise_name}"]
+        func = globals()[f"solution_{exercise_name}"]
     except KeyError:
         print(f"There is no solution defined for {exercise_name}.")
     else:
