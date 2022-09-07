@@ -1,34 +1,66 @@
 import inspect
-from typing import Any, Callable
+from textwrap import dedent
+from typing import Any, Callable, List
 
 import pandas as pd
-from IPython.display import Code
 
 
 ### Public functions
 
-def show_solution(exercise_name: str) -> Code:
+
+def show_solution(exercise_name: str) -> Any:
     """This displays the source code of a solution."""
     func = _get_function(exercise_name)
     source_code = inspect.getsource(func)
-    return Code(source_code, language="python")
+    print(source_code)
 
 
 def run_solution(exercise_name: str, **kwargs) -> Any:
     """This runs the solution, using locals from the calling namespace."""
     func = _get_function(exercise_name)
     frame = inspect.currentframe()
-    caller_locals = (frame.f_back.f_locals)
+    caller_locals = frame.f_back.f_locals
 
     arg_names = inspect.getfullargspec(func)[0]
-    
+
     full_kwargs = {}
     full_kwargs.update({name: caller_locals[name] for name in arg_names})
     full_kwargs.update(kwargs)
     return func(**full_kwargs)
 
 
+def describe(text: str) -> Callable[[Callable], Callable]:
+    def decorator(f: Callable) -> Callable:
+        f.__doc__ = text
+        return f
+
+    return decorator
+
+
+def list_solutions() -> List[str]:
+    return [name[9:] for name in globals() if name.startswith("solution_")]
+
+
+### Basics
+
+def solution_hello_world():
+    print("Hello world!")
+
+
+def solution_last_10_titles(titles: pd.Series) -> pd.Series:
+    """Select the last 10 movie titles from the list."""
+    return titles[-10:]
+
+
+def solution_list_like(titles: pd.Series) -> None:
+    """Choose a few more operations you would typically do with
+    a list and try to apply them on titles. What will happen?"""
+    sorted(titles)  # OK
+    reversed(titles)  # OK
+
+
 ### Data manipulation
+
 
 def solution_10_oldest(movie_titles: pd.DataFrame) -> pd.DataFrame:
     """Find the 10 oldest movies that are longer than 2 hours."""
@@ -45,10 +77,8 @@ def solution_pink(movie_titles: pd.DataFrame) -> pd.DataFrame:
     return movie_titles[is_pink]
 
 
-def solution_hour_length(movie_titles: pd.DataFrame) -> pd.Series:
-    return movies_titles.assign(
-        runtimeHours=movie_titles["runtimeMinutes"] / 60
-    )
+def solution_hour_length(movie_titles: pd.DataFrame) -> pd.DataFrame:
+    return movie_titles.assign(runtimeHours=movie_titles["runtimeMinutes"] / 60)
 
 
 def _get_function(exercise_name: str) -> Callable:
