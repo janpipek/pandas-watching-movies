@@ -1,5 +1,6 @@
-pandas==1.4.4
-jupyterlab==3.4.6
-plotly==5.10.0
-requests~=2.28.1
-pyarrow==9.0.0
+pandas~=1.4
+jupyterlab~=3.4
+plotly~=5.10
+requests~=2.28
+pyarrow~=9.0
+openpyxl~=3.0
