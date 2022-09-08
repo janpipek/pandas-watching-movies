@@ -57,6 +57,14 @@ def solution_list_like(titles: pd.Series) -> None:
     a list and try to apply them on titles. What will happen?"""
     sorted(titles)  # OK
     reversed(titles)  # OK
+    # TODO: Add a few?
+
+def solution_actors_and_ages() -> pd.DataFrame:
+    return pd.DataFrame([
+        {"first_name": "Meryl", "surname": "Streep", "age": 73},
+        {"first_name": "Emma", "surname": "Watson", "age": 32},
+        {"first_name": "Ian", "surname": "MacKellen", "age": 83},
+    ])
 
 
 ### Data manipulation
