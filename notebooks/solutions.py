@@ -105,6 +105,82 @@ def solution_binge_watch(movie_titles):
     return datetime.now() + pd.Timedelta(minutes=last_year_minutes)
 
 
+def solution_drop_imdb_id(movies_rated):
+    movies_rated = movies_rated.drop(columns=["imdb_id"])
+    return movies_rated
+
+
+def solution_plot_budget_corr(movies_rated_cpi):
+    return px.scatter(movies_rated_cpi, x="revenue", y="vote_average", log_x=True)
+
+
+def solution_cpi_2022(cpi):
+    month_cols = cpi.columns[1:13]
+    cpi = cpi.assign(
+        Annual=cpi["Annual"].where(cpi["Annual"].notna(), cpi[month_cols].mean(axis="columns"))
+    )
+    return cpi
+
+
+def solution_cpi_validate_merge(movies_rated, cpi):
+    movies_rated_cpi_all = movies_rated.merge(
+        cpi[["year", "Annual"]].rename(columns={"Annual": "CPI"}),
+        on="year",
+        validate="many_to_one",
+    )
+    return movies_rated_cpi_all
+
+
+def solution_hover_data(movies_rated_cpi):
+    return px.scatter_matrix(
+        movies_rated_cpi, 
+        dimensions=["averageRating", "budget", "popularity", "revenue", "vote_average"],
+        hover_name="primaryTitle",
+        hover_data=movies_rated_cpi.columns,
+        opacity=0.3,
+    )
+
+
+def solution_inflation_adjust(movies_rated_cpi):
+    cpi_2022 = cpi.loc[cpi["year"] == 2022, "Annual"].item()
+
+    revenue_2022 = movies_rated_cpi["revenue"] / movies_rated_cpi["CPI"] * cpi_2022
+    budget_2022 = movies_rated_cpi["budget"] / movies_rated_cpi["CPI"] * cpi_2022
+
+    movies_rated_cpi_2022 = movies_rated_cpi.assign(
+        revenue_2022=revenue_2022,
+        budget_2022=budget_2022,
+    )
+
+    return movies_rated_cpi_2022
+
+
+def solution_sort_decades(movies_rated_cpi):
+    return px.box(
+        movies_rated_cpi.assign(decade=decades).sort_values("year", ascending=True),
+        x="decade",
+        y="averageRating",
+    )
+
+
+def solution_star_rating(movies_rated_cpi):
+    star_rating = pd.qcut(
+        movies_rated_cpi["averageRating"],
+        q=5,
+        labels=range(1, 6),
+    )
+    return star_rating
+
+
+def solution_pivot_table(decades_and_genres):
+    pivot_table = decades_and_genres.pivot_table(values="numVotes", index="year", columns="genre", aggfunc="sum")
+    return pivot_table
+
+
+def solution_genre_normalize(decades_vs_genres_crosstab):
+    return decades_vs_genres_crosstab / decades_vs_genres_crosstab.mean(axis="rows")
+
+
 def _get_function(exercise_name: str) -> Callable:
     try:
         return globals()[f"solution_{exercise_name}"]
