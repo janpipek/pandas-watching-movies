@@ -69,6 +69,9 @@ def solution_actors_and_ages() -> pd.DataFrame:
 
 ### Data manipulation
 
+def solution_genre_histogram(movie_titles_with_genre_count: pd.DataFrame) -> pd.DataFrame:
+    return px.histogram(movie_titles_with_genre_count, "genre_count")
+
 
 def solution_10_oldest(movie_titles: pd.DataFrame) -> pd.DataFrame:
     """Find the 10 oldest movies that are longer than 2 hours."""
