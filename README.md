@@ -14,9 +14,18 @@ If you do not know how to do it, visit ...
 pip install -r requirements.txt
 ```
 
+## Using Deepnote
+
+If for some reason you don't want to install the project locally, or if you are used to working
+with DeepNote or other shared notebook enviroments, just click the following link to create
+a fully functional environment running in DeepNote:
+
+<https://deepnote.com/launch?url=https%3A%2F%2Fgithub.com%2Fjanpipek%2Fpandas-watching-movies>
+
 ## Source of data
 
 - IMDB data: Information courtesy of IMDb (https://www.imdb.com). Used with permission.
+- TMDB data: ...
 
 ## Links
 
