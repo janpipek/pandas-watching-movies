@@ -22,6 +22,8 @@ a fully functional environment running in DeepNote:
 
 <https://deepnote.com/launch?url=https%3A%2F%2Fgithub.com%2Fjanpipek%2Fpandas-watching-movies>
 
+Note that you need to have an account at deepnote,com (easy to do, free by default, it will ask automatically).
+
 ## Source of data
 
 - IMDB data: Information courtesy of IMDb (https://www.imdb.com). Used with permission.
