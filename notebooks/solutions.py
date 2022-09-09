@@ -89,6 +89,19 @@ def solution_hour_length(movie_titles: pd.DataFrame) -> pd.DataFrame:
     return movie_titles.assign(runtimeHours=movie_titles["runtimeMinutes"] / 60)
 
 
+def solution_qe2_reign(movie_titles, reign_start=1952, reign_end=2022):
+    reign_movies = movie_titles[(movie_titles["year"] >= reign_start) & (movie_titles["year"] <= reign_end)]
+    return len(reign_movies) / len(movie_titles)
+
+
+def solution_binge_watch(movie_titles):
+    from datetime import datetime
+
+    last_year_movies = movie_titles[movie_titles["year"] == 2021]
+    last_year_minutes = last_year_movies["runtimeMinutes"].sum()    
+    return datetime.now() + pd.Timedelta(minutes=last_year_minutes)
+
+
 def _get_function(exercise_name: str) -> Callable:
     try:
         return globals()[f"solution_{exercise_name}"]
